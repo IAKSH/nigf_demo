@@ -61,5 +61,10 @@ namespace nidm
             list.remove_if([&](nigf::GameObject &go)
                            { go.get_name() == name; });
         }
+
+        void clear()
+        {
+            list.clear();
+        }
     };
 }
