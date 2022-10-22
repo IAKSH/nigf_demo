@@ -11,30 +11,34 @@
 #include <deque>
 #include <stack>
 
-static std::deque<nigf::GameObject> gameobjects;
-static std::deque<nigf::GameSpirite> gamespirites;
-static std::deque<nigf::Animation> animations;
-static std::deque<std::shared_ptr<nigf::Message>> messages;
+nidm::AnimationManager animations;
+nidm::GameObjectManager gameobjects;
+nidm::GameSpiriteManager gamespirites;
+nidm::MessageManager messages;
 
 static nie::Renderer renderer(60);
 
 static void on_draw()
 {
     renderer.clear();
-    for (auto &go : gameobjects)
+    gameobjects.foreach([](nigf::GameObject &go)
     {
         renderer.setDrawingSquare(256, 256, go.get_position_x(), go.get_position_y(), go.get_position_z(), go.get_size_w(), go.get_size_h());
         renderer.setDrawingTexture(go.get_current_image());
         renderer.draw();
-    }
+    });
     renderer.swap();
 }
 
 static void deliever_msg_to_hooks()
 {
-    for (auto &msg : messages)
-        for (auto &spirite : gamespirites)
+    messages.foreach([&](auto &msg)
+    {
+        gamespirites.foreach([&](nigf::GameSpirite &spirite)
+        {
             spirite.on_hook(*msg);
+        });
+    });
 }
 
 static void clear_msgs()
@@ -47,8 +51,10 @@ static void on_tick(int id)
     // computing tick
     deliever_msg_to_hooks();
     clear_msgs();
-    for (auto &spirite : gamespirites)
+    gamespirites.foreach([](nigf::GameSpirite &spirite)
+    {
         spirite.on_tick();
+    });
 
     // renderer frame
     on_draw();
@@ -61,29 +67,20 @@ static void on_resize(GLsizei width, GLsizei height)
     renderer.openGLResize(width, height);
 }
 
-static nigf::GameObject &getGameObject(const char *name)
-{
-    std::string s(name);
-    for (auto &go : gameobjects)
-        if (std::string(go.get_name()) == s)
-            return go;
-    exit(-1);
-}
-
 static void mouse_msg_delive(int x, int y)
 {
-    messages.push_back(std::make_shared<nigf::MouseMessage>(nigf::MouseMessage(x, y, false)));
+    messages.add(std::make_shared<nigf::MouseMessage>(nigf::MouseMessage(x, y, false)));
 }
 
 static void keyboard_down_msg_delive(unsigned char c, int x, int y)
 {
-    messages.push_back(std::make_shared<nigf::KeyoardMessage>(nigf::KeyoardMessage(c, true)));
+    messages.add(std::make_shared<nigf::KeyoardMessage>(nigf::KeyoardMessage(c, true)));
     mouse_msg_delive(x, y);
 }
 
 static void keyboard_up_msg_delive(unsigned char c, int x, int y)
 {
-    messages.push_back(std::make_shared<nigf::KeyoardMessage>(nigf::KeyoardMessage(c, false)));
+    messages.add(std::make_shared<nigf::KeyoardMessage>(nigf::KeyoardMessage(c, false)));
     mouse_msg_delive(x, y);
 }
 
@@ -91,8 +88,8 @@ static void initialize_demo()
 {
     demo::initialize();
     
-    gameobjects.push_back(demo::obj_player);
-    gamespirites.push_back(demo::spr_player);
+    //_gameobjects.push_back(demo::obj_player);
+    //_gamespirites.push_back(demo::spr_player);
 }
 
 
@@ -116,9 +113,9 @@ int main(int argc, char *argv[]) noexcept
         if (msg->get_type() == nigf::MessageType::keyboard_msg)
         {
             auto buffer = static_cast<nigf::KeyoardMessage*>(msg);
+            auto &obj = gameobjects.get(0);
             if (buffer->is_key_down())
             {
-                auto &obj = getGameObject("obj_player");
                 switch (buffer->get_ascii())
                 {
                 case 'w':
@@ -140,7 +137,6 @@ int main(int argc, char *argv[]) noexcept
             }
             else 
             {
-                auto &obj = getGameObject("obj_player");
                 switch (buffer->get_ascii())
                 {
                 case 'w':
@@ -163,9 +159,9 @@ int main(int argc, char *argv[]) noexcept
         }
     });
 
-    gameobjects.push_back(obj_player);
-    spr_player.bind_gameobject(getGameObject("obj_player"));
-    gamespirites.push_back(spr_player);
+    gameobjects.add(obj_player);
+    spr_player.bind_gameobject(gameobjects.get(0));
+    gamespirites.add(spr_player);
 
     nigf::Gameplay gp("hello world!", 800, 600, 60, &argc, argv);
     gp.bind_ondraw(on_draw);
