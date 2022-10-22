@@ -1,7 +1,7 @@
 #include "gameobject.hpp"
 
 nigf::GameObject::GameObject(unsigned int id, unsigned int tid, const char *name)
-    : ID(id), TEMPLATE_ID(tid), NAME(name)
+    : id(id), TEMPLATE_ID(tid), NAME(name)
 {
     position_x = 0;
     position_y = 0;
@@ -29,9 +29,9 @@ int nigf::GameObject::get_position_z()
     return position_z;
 }
 
-const unsigned int nigf::GameObject::get_id()
+unsigned int nigf::GameObject::get_id()
 {
-    return ID;
+    return id;
 }
 
 const unsigned int nigf::GameObject::get_template_id()
@@ -152,4 +152,9 @@ int nigf::GameObject::get_speed_y()
 int nigf::GameObject::get_speed_z()
 {
     return speed_z;
+}
+
+void nigf::GameObject::reset_id(unsigned int new_id)
+{
+    id = new_id;
 }

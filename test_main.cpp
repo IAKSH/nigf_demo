@@ -1,9 +1,4 @@
-#include <image.hpp>
-#include <gameplay.hpp>
-#include <gameobject.hpp>
-#include <gamespirite.hpp>
-#include <animation.hpp>
-#include <msgobject.hpp>
+#include <nigf.hpp>
 
 #include "renderer.hpp"
 #include "player.hpp"

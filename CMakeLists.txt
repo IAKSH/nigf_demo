@@ -32,6 +32,26 @@ target_link_libraries(nigf PUBLIC
     glut
 )
 
+add_library(nidm)
+
+target_sources(nidm PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/objmanager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/objmanager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/gomanager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/gomanager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/msgmanager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/msgmanager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/gsmanager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/gsmanager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/animanager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/animanager.cpp
+)
+
+target_include_directories(nidm PUBLIC 
+    ${CMAKE_CURRENT_LIST_DIR}/framework/
+)
+
+
 add_executable(nigf_demo)
 
 target_sources(nigf_demo PUBLIC
@@ -48,6 +68,7 @@ target_include_directories(nigf_demo PUBLIC
 
 target_link_libraries(nigf_demo PUBLIC
     nigf
+    nidm
 )
 
 

@@ -16,7 +16,7 @@ namespace nigf
         int speed_x,speed_y,speed_z;
         int size_w,size_h;
         int current_frame_index = 0;
-        const unsigned int ID;
+        unsigned int id;
         const unsigned int TEMPLATE_ID;
         const std::string NAME;
         std::unordered_map<std::string,std::string> datas;
@@ -34,8 +34,9 @@ namespace nigf
         int get_speed_z();
         int get_size_w();
         int get_size_h();
-        const unsigned int get_id();
+        unsigned int get_id();
         const unsigned int get_template_id();
+        void reset_id(unsigned int new_id);
         void set_position_x(int x);
         void set_position_y(int y);
         void set_position_z(int z);
