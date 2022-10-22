@@ -2,6 +2,7 @@
 #include <nigf.hpp>
 
 #include <string>
+#include <functional>
 #include <forward_list>
 
 namespace nidm
@@ -27,6 +28,12 @@ namespace nidm
         {
             count++;
             list.push_front(t);
+        }
+
+        void foreach (std::function<void(T &)> func)
+        {
+            for (auto &t : list)
+                func(t);
         }
 
         T &get(unsigned int id)
