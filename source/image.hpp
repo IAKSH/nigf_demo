@@ -21,4 +21,6 @@ namespace nigf
         int getHight();
         int getChannelCount();
     };
+
+    extern Image error_image;
 }

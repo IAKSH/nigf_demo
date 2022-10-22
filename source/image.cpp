@@ -10,6 +10,8 @@ extern "C"
 #include "stb/stb_image_resize.h"
 }
 
+nigf::Image nigf::error_image("../resource/error.png");
+
 nigf::Image::Image() {}
 
 nigf::Image::Image(const char *path)

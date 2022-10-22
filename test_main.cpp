@@ -3,7 +3,7 @@
 #include <gameplay.hpp>
 #include <GL/freeglut.h>
 
-nigf::Image image("../resource/OIP-C.jpg");
+nigf::Image image("../resource/error.jpg");
 GLuint texture = 0;
 
 constexpr int32_t WORLD_SIZE_X = 512;

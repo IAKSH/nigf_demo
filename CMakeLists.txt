@@ -11,6 +11,16 @@ target_sources(nigf PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/source/gameplay.hpp
     ${CMAKE_CURRENT_LIST_DIR}/source/image.cpp
     ${CMAKE_CURRENT_LIST_DIR}/source/image.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/msgobject.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/msgobject.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/gamespirite.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/gamespirite.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/gameplay.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/gameplay.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/gameobject.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/gameobject.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/animation.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/animation.hpp
 )
 
 target_include_directories(nigf PUBLIC 
