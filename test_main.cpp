@@ -1,4 +1,5 @@
 #include <nigf.hpp>
+#include <nidm.hpp>
 
 #include "renderer.hpp"
 #include "player.hpp"

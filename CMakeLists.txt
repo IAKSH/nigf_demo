@@ -45,6 +45,7 @@ target_sources(nidm PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/datamanager/gsmanager.cpp
     ${CMAKE_CURRENT_LIST_DIR}/datamanager/animanager.hpp
     ${CMAKE_CURRENT_LIST_DIR}/datamanager/animanager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/nidm.hpp
 )
 
 target_include_directories(nidm PUBLIC 
@@ -64,6 +65,7 @@ target_sources(nigf_demo PUBLIC
 
 target_include_directories(nigf_demo PUBLIC 
     ${CMAKE_CURRENT_LIST_DIR}/framework/
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/
 )
 
 target_link_libraries(nigf_demo PUBLIC
