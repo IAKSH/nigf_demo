@@ -34,5 +34,6 @@ namespace nigf
         void add_hook(hook func);
         void bind_gameobject(GameObject &go);
         bool check_if_binded();
+        const unsigned int get_id();
     };
 }

@@ -42,3 +42,8 @@ bool nigf::GameSpirite::check_if_binded()
 {
     return !(hosts.size() == 0);
 }
+
+const unsigned int nigf::GameSpirite::get_id()
+{
+    return ID;
+}
