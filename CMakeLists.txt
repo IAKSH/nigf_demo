@@ -7,20 +7,20 @@ enable_testing()
 add_library(nigf)
 
 target_sources(nigf PUBLIC
-    ${CMAKE_CURRENT_LIST_DIR}/source/gameplay.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/gameplay.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/image.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/image.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/msgobject.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/msgobject.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/gamespirite.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/gamespirite.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/gameplay.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/gameplay.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/gameobject.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/gameobject.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/animation.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/source/animation.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/gameplay.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/gameplay.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/image.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/image.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/msgobject.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/msgobject.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/gamespirite.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/gamespirite.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/gameplay.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/gameplay.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/gameobject.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/gameobject.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/animation.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/animation.hpp
 )
 
 target_include_directories(nigf PUBLIC 
@@ -35,7 +35,7 @@ target_link_libraries(nigf PUBLIC
 add_executable(nigf_demo test_main.cpp)
 
 target_include_directories(nigf_demo PUBLIC 
-    ${CMAKE_CURRENT_LIST_DIR}/source/
+    ${CMAKE_CURRENT_LIST_DIR}/framework/
 )
 
 target_link_libraries(nigf_demo PUBLIC
