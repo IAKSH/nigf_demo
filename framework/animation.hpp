@@ -7,6 +7,8 @@
 
 namespace nigf
 {
+    inline nigf::Image error_image("../resource/error.jpg");
+
     class Animation
     {
     private:

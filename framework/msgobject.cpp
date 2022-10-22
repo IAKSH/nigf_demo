@@ -9,7 +9,7 @@ nigf::Message::~Message()
 {
 }
 
-nigf::KeyoardMessage::KeyoardMessage(int ascii, bool down)
+nigf::KeyoardMessage::KeyoardMessage(unsigned char ascii, bool down)
     : key_ascill(ascii), key_down(down), Message(MessageType::keyboard_msg)
 {
 }
@@ -69,4 +69,9 @@ const int nigf::CommonMessage::get_type_id()
 std::string_view nigf::CommonMessage::get_data()
 {
     return data;
+}
+
+const nigf::MessageType nigf::Message::get_type()
+{
+    return msg_type;
 }

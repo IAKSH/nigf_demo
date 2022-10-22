@@ -10,8 +10,6 @@ extern "C"
 #include "stb/stb_image_resize.h"
 }
 
-nigf::Image nigf::error_image("../resource/error.png");
-
 nigf::Image::Image() {}
 
 nigf::Image::Image(const char *path)
@@ -49,22 +47,22 @@ void nigf::Image::save(const char *path)
     stbi_write_png(path, width, hight, channel_count, data, 0);
 }
 
-unsigned char *nigf::Image::getData()
+unsigned char *nigf::Image::get_data()
 {
     return data;
 }
 
-int nigf::Image::getWidth()
+int nigf::Image::get_width()
 {
     return width;
 }
 
-int nigf::Image::getHight()
+int nigf::Image::get_hight()
 {
     return hight;
 }
 
-int nigf::Image::getChannelCount()
+int nigf::Image::get_channel_count()
 {
     return channel_count;
 }

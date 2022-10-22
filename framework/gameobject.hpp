@@ -13,6 +13,8 @@ namespace nigf
     {
     private:
         int position_x,position_y,position_z;
+        int speed_x,speed_y,speed_z;
+        int size_w,size_h;
         int current_frame_index = 0;
         const unsigned int ID;
         const unsigned int TEMPLATE_ID;
@@ -23,15 +25,25 @@ namespace nigf
     public:
         GameObject(unsigned int id,unsigned int tid,const char* name);
         ~GameObject();
-
+        
         int get_position_x();
         int get_position_y();
         int get_position_z();
+        int get_speed_x();
+        int get_speed_y();
+        int get_speed_z();
+        int get_size_w();
+        int get_size_h();
         const unsigned int get_id();
         const unsigned int get_template_id();
         void set_position_x(int x);
         void set_position_y(int y);
         void set_position_z(int z);
+        void set_speed_x(int speed);
+        void set_speed_y(int speed);
+        void set_speed_z(int speed);
+        void set_size_w(int w);
+        void set_size_h(int h);
         void set_animation(nigf::Animation& animation);
         void add_data(const char* key);
         void set_data(const char* key,const char* val);

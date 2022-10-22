@@ -1,157 +1,184 @@
-#include <iostream>
 #include <image.hpp>
 #include <gameplay.hpp>
+#include <gameobject.hpp>
+#include <gamespirite.hpp>
+#include <animation.hpp>
+#include <msgobject.hpp>
+
+#include "renderer.hpp"
+#include "player.hpp"
+
+#include <GL/gl.h>
 #include <GL/freeglut.h>
 
-nigf::Image image("../resource/error.jpg");
-GLuint texture = 0;
+#include <iostream>
+#include <deque>
+#include <stack>
 
-constexpr int32_t WORLD_SIZE_X = 512;
-constexpr int32_t WORLD_SIZE_Y = 512;
+static std::deque<nigf::GameObject> gameobjects;
+static std::deque<nigf::GameSpirite> gamespirites;
+static std::deque<nigf::Animation> animations;
+static std::deque<std::shared_ptr<nigf::Message>> messages;
 
-int32_t gameobject_pos_x = 0;
-int32_t gameobject_pos_y = 0;
-int32_t gameobject_pos_z = 0;
-uint32_t gameobject_size_w = 50;
-uint32_t gameobject_size_h = 50;
-int32_t gameobject_size_z = 1;
+static nie::Renderer renderer(60);
 
-int32_t gameobject_speed_x = 0;
-int32_t gameobject_speed_y = 0;
-
-static void drawPoints()
+static void on_draw()
 {
-    glBegin(GL_POINTS);
-    glVertex2f(0.1f, 0.2f);
-    glVertex2f(0.0f, 0.0f);
-    glEnd();
-}
-
-static void drawTexture()
-{
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);                            //支持4字节对齐
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);      // S方向上贴图
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);      // T方向上贴图
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //放大纹理过滤方式
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //缩小纹理过滤方式
-
-    glTexImage2D(GL_TEXTURE_2D, 0, 3, image.getWidth(), image.getHight(), 0, GL_RGB, GL_UNSIGNED_BYTE, image.getData()); //载入纹理：
-
-    glMatrixMode(GL_MODELVIEW);  // 选择模型观察矩阵
-    glLoadIdentity();            // 重置模型观察矩阵
-    glMatrixMode(GL_PROJECTION); // 选择投影矩阵
-    glLoadIdentity();
-
-    float pos[3];
-    pos[0] = static_cast<float>(gameobject_pos_x) / static_cast<float>(WORLD_SIZE_X);
-    pos[1] = static_cast<float>(gameobject_pos_y) / static_cast<float>(WORLD_SIZE_Y);
-    pos[2] = static_cast<float>(gameobject_pos_z);
-
-    float len[3];
-    len[0] = static_cast<float>(gameobject_size_w) / static_cast<float>(WORLD_SIZE_X);
-    len[1] = static_cast<float>(gameobject_size_h) / static_cast<float>(WORLD_SIZE_Y);
-    len[2] = static_cast<float>(gameobject_size_z);
-
-    float square[4][3] = {{pos[0], pos[1], pos[2]}, {pos[0] + len[0], pos[1], pos[2]}, {pos[0], pos[1] - len[1], pos[2]}, {pos[0] + len[0], pos[1] - len[1], pos[2]}};
-
-    glEnable(GL_TEXTURE_2D); //启用2D纹理映射
-    glBegin(GL_QUADS);
-    glTexCoord2f(0.0f, 0.0f);
-    glVertex3f(square[0][0], square[0][1], square[0][2]);
-    glTexCoord2f(1.0f, 0.0f);
-    glVertex3f(square[1][0], square[1][1], square[1][2]);
-    glTexCoord2f(1.0f, 1.0f);
-    glVertex3f(square[3][0], square[3][1], square[3][2]);
-    glTexCoord2f(0.0f, 1.0f);
-    glVertex3f(square[2][0], square[2][1], square[2][2]);
-    glEnd();
-    glDisable(GL_TEXTURE_2D);
-}
-
-static void display()
-{
-    glClear(GL_COLOR_BUFFER_BIT);
-    drawPoints();
-    drawTexture();
-    glFlush();
-    glutSwapBuffers();
-}
-
-static GLvoid reSizeGLScene(GLsizei width, GLsizei height)
-{
-    glViewport(0, 0, width, height);
-}
-
-// why unsigned char...
-static void keyboardDown(unsigned char input, int mouseX, int mouseY)
-{
-    switch (input)
+    renderer.clear();
+    for (auto &go : gameobjects)
     {
-    case 'w':
-        gameobject_speed_y = 1;
-        break;
-    case 's':
-        gameobject_speed_y = -1;
-        break;
-    case 'a':
-        gameobject_speed_x = -1;
-        break;
-    case 'd':
-        gameobject_speed_x = 1;
-        break;
-
-    default:
-        break;
+        renderer.setDrawingSquare(256, 256, go.get_position_x(), go.get_position_y(), go.get_position_z(), go.get_size_w(), go.get_size_h());
+        renderer.setDrawingTexture(go.get_current_image());
+        renderer.draw();
     }
+    renderer.swap();
 }
 
-static void keyboardUp(unsigned char input, int mouseX, int mouseY)
+static void deliever_msg_to_hooks()
 {
-    switch (input)
-    {
-    case 'w':
-        gameobject_speed_y = 0;
-        break;
-    case 's':
-        gameobject_speed_y = 0;
-        break;
-    case 'a':
-        gameobject_speed_x = 0;
-        break;
-    case 'd':
-        gameobject_speed_x = 0;
-        break;
-
-    default:
-        break;
-    }
+    for (auto &msg : messages)
+        for (auto &spirite : gamespirites)
+            spirite.on_hook(*msg);
 }
 
-void onFream(int id)
+static void clear_msgs()
 {
-    gameobject_pos_x += gameobject_speed_x;
-    gameobject_pos_y += gameobject_speed_y;
-
-    display();
-    glutTimerFunc(16, onFream, id);
+    messages.clear();
 }
+
+static void on_tick(int id)
+{
+    // computing tick
+    deliever_msg_to_hooks();
+    clear_msgs();
+    for (auto &spirite : gamespirites)
+        spirite.on_tick();
+
+    // renderer frame
+    on_draw();
+
+    glutTimerFunc(16, on_tick, id);
+}
+
+static void on_resize(GLsizei width, GLsizei height)
+{
+    renderer.openGLResize(width, height);
+}
+
+static nigf::GameObject &getGameObject(const char *name)
+{
+    std::string s(name);
+    for (auto &go : gameobjects)
+        if (std::string(go.get_name()) == s)
+            return go;
+    exit(-1);
+}
+
+static void mouse_msg_delive(int x, int y)
+{
+    messages.push_back(std::make_shared<nigf::MouseMessage>(nigf::MouseMessage(x, y, false)));
+}
+
+static void keyboard_down_msg_delive(unsigned char c, int x, int y)
+{
+    messages.push_back(std::make_shared<nigf::KeyoardMessage>(nigf::KeyoardMessage(c, true)));
+    mouse_msg_delive(x, y);
+}
+
+static void keyboard_up_msg_delive(unsigned char c, int x, int y)
+{
+    messages.push_back(std::make_shared<nigf::KeyoardMessage>(nigf::KeyoardMessage(c, false)));
+    mouse_msg_delive(x, y);
+}
+
+static void initialize_demo()
+{
+    demo::initialize();
+    
+    gameobjects.push_back(demo::obj_player);
+    gamespirites.push_back(demo::spr_player);
+}
+
+
+nigf::GameObject obj_player(0,0,"obj_player");
+nigf::GameSpirite spr_player(0,"spr_player");
 
 int main(int argc, char *argv[]) noexcept
 {
     std::cout << "hello world\n";
 
-    image.resize(512, 512);
-    texture = *image.getData();
+    //initialize_demo();
+    obj_player.set_size_h(100);
+    obj_player.set_size_w(100);
+    spr_player.bind_on_tick_func([&](nigf::GameObject& self)
+    {
+        self.set_position_x(self.get_position_x() + self.get_speed_x());
+        self.set_position_y(self.get_position_y() + self.get_speed_y());
+    });
+    spr_player.add_hook([&](nigf::Message* msg)
+    {
+        if (msg->get_type() == nigf::MessageType::keyboard_msg)
+        {
+            auto buffer = static_cast<nigf::KeyoardMessage*>(msg);
+            if (buffer->is_key_down())
+            {
+                auto &obj = getGameObject("obj_player");
+                switch (buffer->get_ascii())
+                {
+                case 'w':
+                    obj.set_speed_y(1);
+                    break;
+
+                case 'a':
+                    obj.set_speed_x(-1);
+                    break;
+
+                case 's':
+                    obj.set_speed_y(-1);
+                    break;
+
+                case 'd':
+                    obj.set_speed_x(1);
+                    break;
+                }
+            }
+            else 
+            {
+                auto &obj = getGameObject("obj_player");
+                switch (buffer->get_ascii())
+                {
+                case 'w':
+                    obj.set_speed_y(0);
+                    break;
+
+                case 'a':
+                    obj.set_speed_x(0);
+                    break;
+
+                case 's':
+                    obj.set_speed_y(0);
+                    break;
+
+                case 'd':
+                    obj.set_speed_x(0);
+                    break;
+                }
+            }
+        }
+    });
+
+    gameobjects.push_back(obj_player);
+    spr_player.bind_gameobject(getGameObject("obj_player"));
+    gamespirites.push_back(spr_player);
 
     nigf::Gameplay gp("hello world!", 800, 600, 60, &argc, argv);
-    gp.bind_ondraw(display);
-    gp.bind_onresize(reSizeGLScene);
-    gp.bind_onkeyboard_down(keyboardDown);
-    gp.bind_onkeyboard_up(keyboardUp);
-    gp.bind_ontick(onFream);
+    gp.bind_ondraw(on_draw);
+    gp.bind_onresize(on_resize);
+    gp.bind_onkeyboard_down(keyboard_down_msg_delive);
+    gp.bind_onkeyboard_up(keyboard_up_msg_delive);
+    gp.bind_ontick(on_tick);
 
-    if(!gp.main_loop())
+    if (!gp.main_loop())
     {
         std::cerr << "Gameplay error: " << gp.get_error_msg() << '\n';
         return -1;

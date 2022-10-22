@@ -9,8 +9,11 @@ nigf::GameSpirite::~GameSpirite() {}
 
 void nigf::GameSpirite::on_tick()
 {
-    for (auto &host : hosts)
-        on_tick_func(*host);
+    if (on_tick_func)
+    {
+        for (auto &host : hosts)
+            on_tick_func(*host);
+    }
 }
 
 void nigf::GameSpirite::on_hook(nigf::Message &msg)

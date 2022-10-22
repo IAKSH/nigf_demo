@@ -13,14 +13,12 @@ namespace nigf
         Image(const char *path);
         ~Image();
 
-        unsigned char *getData();
+        unsigned char *get_data();
         void open(const char *path);
         void resize(int new_width, int new_hight);
         void save(const char *path);
-        int getWidth();
-        int getHight();
-        int getChannelCount();
+        int get_width();
+        int get_hight();
+        int get_channel_count();
     };
-
-    extern Image error_image;
 }

@@ -3,6 +3,11 @@
 nigf::GameObject::GameObject(unsigned int id, unsigned int tid, const char *name)
     : ID(id), TEMPLATE_ID(tid), NAME(name)
 {
+    position_x = 0;
+    position_y = 0;
+    position_z = 0;
+    size_h = 10;
+    size_w = 10;
 }
 
 nigf::GameObject::~GameObject()
@@ -80,11 +85,71 @@ nigf::Image &nigf::GameObject::get_current_image()
         return buffer.get_frame(current_frame_index);
     }
     else
-        return nigf::error_image;
+        return error_image;
 }
 
 void nigf::GameObject::set_animation(nigf::Animation &animation)
 {
     std::shared_ptr<nigf::Animation> ptr(&animation);
     current_animation = ptr;
+}
+
+int nigf::GameObject::get_size_w()
+{
+    return size_w;
+}
+
+int nigf::GameObject::get_size_h()
+{
+    return size_h;
+}
+
+void nigf::GameObject::set_size_w(int w)
+{
+    // Should use log system when nigf's log system is ready.
+    if (w < 0)
+        abort();
+    size_w = w;
+}
+
+void nigf::GameObject::set_size_h(int h)
+{
+    // Should use log system when nigf's log system is ready.
+    if (h < 0)
+        abort();
+    size_h = h;
+}
+
+        void set_speed_x(int speed);
+        void set_speed_y(int speed);
+        void set_speed_z(int speed);
+
+void nigf::GameObject::set_speed_x(int speed)
+{
+    speed_x = speed;
+}
+
+void nigf::GameObject::set_speed_y(int speed)
+{
+    speed_y = speed;
+}
+
+void nigf::GameObject::set_speed_z(int speed)
+{
+    speed_z = speed;
+}
+
+int nigf::GameObject::get_speed_x()
+{
+    return speed_x;
+}
+
+int nigf::GameObject::get_speed_y()
+{
+    return speed_y;
+}
+
+int nigf::GameObject::get_speed_z()
+{
+    return speed_z;
 }

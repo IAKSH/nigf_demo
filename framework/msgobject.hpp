@@ -19,16 +19,18 @@ namespace nigf
     public:
         Message(MessageType mtype);
         ~Message();
+
+        const MessageType get_type();
     };
 
     class KeyoardMessage : public Message
     {
     private:
-        const int key_ascill;
+        const unsigned char key_ascill;
         const bool key_down;
 
     public:
-        KeyoardMessage(int ascii, bool down);
+        KeyoardMessage(unsigned char ascii, bool down);
         ~KeyoardMessage();
 
         const int get_ascii();

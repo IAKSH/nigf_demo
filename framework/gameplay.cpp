@@ -18,47 +18,47 @@ nigf::Gameplay::Gameplay(const char *title, int w, int h, unsigned int tps, int 
 
 nigf::Gameplay::~Gameplay() {}
 
-void nigf::Gameplay::bind_ondraw(on_draw_func func)
+void nigf::Gameplay::bind_ondraw(void (*func)(void))
 {
-    ondraw_callback = func;
+    on_draw_callback = func;
 }
 
-void nigf::Gameplay::bind_onresize(on_resize_func func)
+void nigf::Gameplay::bind_onresize(void (*func)(int, int))
 {
-    onresize_callback = func;
+    on_resize_callback = func;
 }
 
-void nigf::Gameplay::bind_onkeyboard_down(on_keyboard_func func)
+void nigf::Gameplay::bind_onkeyboard_down(void (*func)(unsigned char, int, int))
 {
-    onkeyboard_down_callback = func;
+    on_keyboard_down_callback = func;
 }
 
-void nigf::Gameplay::bind_onkeyboard_up(on_keyboard_func func)
+void nigf::Gameplay::bind_onkeyboard_up(void (*func)(unsigned char, int, int))
 {
-    onkeyboard_up_callback = func;
+    on_keyboard_up_callback = func;
 }
 
-void nigf::Gameplay::bind_ontick(on_tick_func func)
+void nigf::Gameplay::bind_ontick(void (*func)(int))
 {
-    ontick_callback = func;
+    on_tick_callback = func;
 }
 
 bool nigf::Gameplay::main_loop()
 {
-    if (!ondraw_callback || !onresize_callback)
+    if (!on_draw_callback || !on_resize_callback)
     {
         error_msg = "missing neccessary callback binding";
         return false;
     }
 
-    glutDisplayFunc(*ondraw_callback.target<void (*)()>());
-    glutReshapeFunc(*onresize_callback.target<void (*)(int, int)>());
-    if (onkeyboard_down_callback)
-        glutKeyboardFunc(*onkeyboard_down_callback.target<void (*)(unsigned char, int, int)>());
-    if (onkeyboard_up_callback)
-        glutKeyboardUpFunc(*onkeyboard_up_callback.target<void (*)(unsigned char, int, int)>());
-    if (ontick_callback)
-        glutTimerFunc(static_cast<int>(1.0f / aim_tps), *ontick_callback.target<void (*)(int)>(), 0);
+    glutDisplayFunc(on_draw_callback);
+    glutReshapeFunc(on_resize_callback);
+    if (on_keyboard_down_callback)
+        glutKeyboardFunc(on_keyboard_down_callback);
+    if (on_keyboard_up_callback)
+        glutKeyboardUpFunc(on_keyboard_up_callback);
+    if (on_tick_callback)
+        glutTimerFunc(static_cast<int>(1.0f / aim_tps), on_tick_callback, 0);
     glutMainLoop();
     return true;
 }

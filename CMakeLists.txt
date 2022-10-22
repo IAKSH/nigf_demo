@@ -32,7 +32,15 @@ target_link_libraries(nigf PUBLIC
     glut
 )
 
-add_executable(nigf_demo test_main.cpp)
+add_executable(nigf_demo)
+
+target_sources(nigf_demo PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}/test_main.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/renderer.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/renderer.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/player.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/player.hpp
+)
 
 target_include_directories(nigf_demo PUBLIC 
     ${CMAKE_CURRENT_LIST_DIR}/framework/
