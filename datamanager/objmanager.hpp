@@ -4,6 +4,7 @@
 #include <string>
 #include <functional>
 #include <forward_list>
+#include <iostream>
 
 namespace nidm
 {
@@ -41,6 +42,8 @@ namespace nidm
             for (auto &go : list)
                 if (go.get_id() == id)
                     return go;
+            std::cout << "[ERROR] nidm::ObjectManager::get(unsigned int id) failed\n";
+            exit(-1);
         }
 
         T &get(std::string name)
@@ -48,6 +51,8 @@ namespace nidm
             for (auto &go : list)
                 if (go.get_name() == name)
                     return go;
+            std::cout << "[ERROR] nidm::ObjectManager::get(std::string name) failed\n";
+            exit(-1);
         }
 
         void remove(unsigned int id)
