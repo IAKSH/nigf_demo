@@ -70,6 +70,7 @@ namespace nidm
         void clear()
         {
             list.clear();
+            count = 0;
         }
     };
 }
