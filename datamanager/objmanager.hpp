@@ -3,7 +3,7 @@
 
 #include <string>
 #include <functional>
-#include <forward_list>
+#include <list>
 #include <iostream>
 
 namespace nidm
@@ -11,8 +11,8 @@ namespace nidm
     template <typename T>
     class ObjectManager
     {
-    private:
-        std::forward_list<T> list;
+    protected:
+        std::list<T> list;
         unsigned int count = 0;
 
     public:
@@ -39,19 +39,19 @@ namespace nidm
 
         T &get(unsigned int id)
         {
-            for (auto &go : list)
-                if (go.get_id() == id)
-                    return go;
-            std::cout << "[ERROR] nidm::ObjectManager::get(unsigned int id) failed\n";
+            for (auto &t : list)
+                if (t.get_id() == id)
+                    return t;
+            std::cerr << "[ERROR] nidm::ObjectManager::get(unsigned int id) failed\n";
             exit(-1);
         }
 
         T &get(std::string name)
         {
-            for (auto &go : list)
-                if (go.get_name() == name)
-                    return go;
-            std::cout << "[ERROR] nidm::ObjectManager::get(std::string name) failed\n";
+            for (auto &t : list)
+                if (t.get_name() == name)
+                    return t;
+            std::cerr << "[ERROR] nidm::ObjectManager::get(std::string name) failed\n";
             exit(-1);
         }
 
