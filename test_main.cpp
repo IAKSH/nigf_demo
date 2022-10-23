@@ -105,6 +105,11 @@ int main(int argc, char *argv[]) noexcept
     obj_player.set_size_w(100);
     spr_player.bind_on_tick_func([&](nigf::GameObject& self)
     {
+        if(self.get_position_y() >= 256) self.set_speed_y(-1);
+        if(self.get_position_y() - self.get_size_h() <= -256) self.set_speed_y(1);
+        if(self.get_position_x() <= -256) self.set_speed_x(1);
+        if(self.get_position_x() + self.get_size_w() >= 256) self.set_speed_x(-1);
+
         self.set_position_x(self.get_position_x() + self.get_speed_x());
         self.set_position_y(self.get_position_y() + self.get_speed_y());
     });
