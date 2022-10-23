@@ -115,19 +115,19 @@ int main(int argc, char *argv[]) noexcept
                 switch (buffer->get_code())
                 {
                 case nigf::KeyboardCode::KEY_W:
-                    //obj.set_speed_y(0);
+                    obj.set_speed_y(0);
                     break;
 
                 case nigf::KeyboardCode::KEY_A:
-                    //obj.set_speed_x(0);
+                    obj.set_speed_x(0);
                     break;
 
                 case nigf::KeyboardCode::KEY_S:
-                    //obj.set_speed_y(0);
+                    obj.set_speed_y(0);
                     break;
 
                 case nigf::KeyboardCode::KEY_D:
-                    //obj.set_speed_x(0);
+                    obj.set_speed_x(0);
                     break;
                 }
             }
