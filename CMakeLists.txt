@@ -21,6 +21,8 @@ target_sources(nigf PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/framework/gameobject.hpp
     ${CMAKE_CURRENT_LIST_DIR}/framework/animation.cpp
     ${CMAKE_CURRENT_LIST_DIR}/framework/animation.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/keyboard.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/keyboard.hpp
 )
 
 target_include_directories(nigf PUBLIC 
@@ -29,7 +31,7 @@ target_include_directories(nigf PUBLIC
 
 target_link_libraries(nigf PUBLIC
     GL
-    glut
+    glfw
 )
 
 add_library(nidm)

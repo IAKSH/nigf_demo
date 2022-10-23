@@ -9,21 +9,21 @@ nigf::Message::~Message()
 {
 }
 
-nigf::KeyoardMessage::KeyoardMessage(unsigned char ascii, bool down)
-    : key_ascill(ascii), key_down(down), Message(MessageType::keyboard_msg)
+nigf::KeyboardMessage::KeyboardMessage(nigf::KeyboardCode key, bool down)
+    : code(key), key_down(down), Message(MessageType::keyboard_msg)
 {
 }
 
-nigf::KeyoardMessage::~KeyoardMessage()
+nigf::KeyboardMessage::~KeyboardMessage()
 {
 }
 
-const int nigf::KeyoardMessage::get_ascii()
+const nigf::KeyboardCode nigf::KeyboardMessage::get_code()
 {
-    return key_ascill;
+    return code;
 }
 
-const bool nigf::KeyoardMessage::is_key_down()
+const bool nigf::KeyboardMessage::is_key_down()
 {
     return key_down;
 }

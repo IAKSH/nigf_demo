@@ -2,6 +2,8 @@
 #include <string>
 #include <string_view>
 
+#include "keyboard.hpp"
+
 namespace nigf
 {
     enum class MessageType
@@ -24,17 +26,17 @@ namespace nigf
         const MessageType get_type();
     };
 
-    class KeyoardMessage : public Message
+    class KeyboardMessage : public Message
     {
     private:
-        const unsigned char key_ascill;
+        const nigf::KeyboardCode code;
         const bool key_down;
 
     public:
-        KeyoardMessage(unsigned char ascii, bool down);
-        ~KeyoardMessage();
+        KeyboardMessage(nigf::KeyboardCode key, bool down);
+        ~KeyboardMessage();
 
-        const int get_ascii();
+        const nigf::KeyboardCode get_code();
         const bool is_key_down();
     };
 

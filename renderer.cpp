@@ -33,11 +33,6 @@ void nie::Renderer::setDrawingSquare(int map_x, int map_y, int draw_x, int draw_
     square_vertex[2] = {drawing_sqare_pos[0] + drawing_sqare_offset[0], drawing_sqare_pos[1] - drawing_sqare_offset[1], drawing_sqare_pos[2]};
 }
 
-void nie::Renderer::swap()
-{
-    glutSwapBuffers();
-}
-
 void nie::Renderer::openGLResize(GLsizei width, GLsizei height)
 {
     glViewport(0, 0, width, height);
@@ -74,9 +69,4 @@ void nie::Renderer::draw()
     glEnd();
     glDisable(GL_TEXTURE_2D);
     glFlush();
-}
-
-void nie::Renderer::clear()
-{
-    glClear(GL_COLOR_BUFFER_BIT);
 }

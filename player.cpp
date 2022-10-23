@@ -4,21 +4,21 @@ static void obj_player_move_hook(nigf::Message *msg)
 {
     if (msg->get_type() == nigf::MessageType::keyboard_msg)
     {
-        auto buffer = static_cast<nigf::KeyoardMessage *>(msg);
+        auto buffer = static_cast<nigf::KeyboardMessage *>(msg);
         if (buffer->is_key_down())
         {
-            switch (buffer->get_ascii())
+            switch (buffer->get_code())
             {
-            case 'w':
+            case nigf::KeyboardCode::KEY_W:
                 demo::obj_player.set_speed_y(1);
                 break;
-            case 's':
+            case nigf::KeyboardCode::KEY_S:
                 demo::obj_player.set_speed_y(-1);
                 break;
-            case 'a':
+            case nigf::KeyboardCode::KEY_A:
                 demo::obj_player.set_speed_x(-1);
                 break;
-            case 'd':
+            case nigf::KeyboardCode::KEY_D:
                 demo::obj_player.set_speed_x(-1);
                 break;
             default:
@@ -27,18 +27,18 @@ static void obj_player_move_hook(nigf::Message *msg)
         }
         else
         {
-            switch (buffer->get_ascii())
+            switch (buffer->get_code())
             {
-            case 'w':
+            case nigf::KeyboardCode::KEY_W:
                 demo::obj_player.set_speed_y(0);
                 break;
-            case 's':
+            case nigf::KeyboardCode::KEY_A:
                 demo::obj_player.set_speed_y(0);
                 break;
-            case 'a':
+            case nigf::KeyboardCode::KEY_S:
                 demo::obj_player.set_speed_x(0);
                 break;
-            case 'd':
+            case nigf::KeyboardCode::KEY_D:
                 demo::obj_player.set_speed_x(0);
                 break;
             default:

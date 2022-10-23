@@ -20,9 +20,7 @@ namespace nie
 
         void setDrawingTexture(nigf::Image &image);
         void setDrawingSquare(int map_x, int map_y, int draw_x, int draw_y,int draw_z, int draw_w, int draw_h);
-        void clear();
         void draw();
-        void swap();
         void openGLResize(GLsizei width, GLsizei height);
     };
 }
