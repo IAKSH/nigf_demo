@@ -3,6 +3,7 @@
 #include <string>
 #include <string_view>
 #include <unordered_map>
+#include <chrono>
 
 namespace nigf
 {
@@ -13,20 +14,21 @@ namespace nigf
     class GameObject
     {
     private:
-        int position_x,position_y,position_z;
-        int speed_x,speed_y,speed_z;
-        int size_w,size_h;
+        int position_x, position_y, position_z;
+        int speed_x, speed_y, speed_z;
+        int size_w, size_h;
         int current_frame_index = 0;
         unsigned int id;
         const unsigned int TEMPLATE_ID;
         const std::string NAME;
-        std::unordered_map<std::string,std::string> datas;
+        std::unordered_map<std::string, std::string> datas;
         std::shared_ptr<nigf::Animation> current_animation = nullptr;
+        std::chrono::steady_clock::time_point animation_last_swap_time;
 
     public:
-        GameObject(unsigned int id,unsigned int tid,const char* name);
+        GameObject(unsigned int id, unsigned int tid, const char *name);
         ~GameObject();
-        
+
         int get_position_x();
         int get_position_y();
         int get_position_z();
@@ -46,11 +48,11 @@ namespace nigf
         void set_speed_z(int speed);
         void set_size_w(int w);
         void set_size_h(int h);
-        void set_animation(nigf::Animation& animation);
-        void add_data(const char* key);
-        void set_data(const char* key,const char* val);
+        void set_animation(nigf::Animation &animation);
+        void add_data(const char *key);
+        void set_data(const char *key, const char *val);
         std::string_view get_name();
-        std::string_view get_data(const char* key);
-        nigf::Image& get_current_image();
+        std::string_view get_data(const char *key);
+        nigf::Image &get_current_image();
     };
 }

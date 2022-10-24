@@ -1,4 +1,5 @@
 #include "gameobject.hpp"
+#include <iostream>
 
 nigf::GameObject::GameObject(unsigned int id, unsigned int tid, const char *name)
     : id(id), TEMPLATE_ID(tid), NAME(name)
@@ -76,11 +77,20 @@ std::string_view nigf::GameObject::get_data(const char *key)
 
 nigf::Image &nigf::GameObject::get_current_image()
 {
-    if (current_animation != nullptr)
+    auto &buffer = *current_animation;
+
+    auto now = std::chrono::steady_clock::now();
+    if (std::chrono::duration_cast<std::chrono::milliseconds>(now - animation_last_swap_time).count() < current_animation->get_interval_ms())
     {
-        auto &buffer = *current_animation;
+        return buffer.get_frame(current_frame_index);
+    }
+
+    animation_last_swap_time = now;
+
+    if (current_frame_index++; current_animation != nullptr)
+    {
         if (current_frame_index >= buffer.get_frame_count())
-            current_frame_index = -1;
+            current_frame_index = 0;
 
         return buffer.get_frame(current_frame_index);
     }
@@ -120,9 +130,9 @@ void nigf::GameObject::set_size_h(int h)
     size_h = h;
 }
 
-        void set_speed_x(int speed);
-        void set_speed_y(int speed);
-        void set_speed_z(int speed);
+void set_speed_x(int speed);
+void set_speed_y(int speed);
+void set_speed_z(int speed);
 
 void nigf::GameObject::set_speed_x(int speed)
 {
