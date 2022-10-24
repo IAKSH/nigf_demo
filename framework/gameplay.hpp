@@ -26,7 +26,6 @@ namespace nigf
 
         void initialize(int *argc, char *argv[]);
         void resize(GLFWwindow* win,GLsizei width, GLsizei height);
-        void input_message_forward();
         void clearn_screen();
         void flush();
         void display();
@@ -38,7 +37,10 @@ namespace nigf
         void bind_message_handle_func(std::function<void(std::shared_ptr<nigf::Message> msg)> f);
         void bind_on_gameplay_tick_func(std::function<void()> func);
         void bind_on_draw_func(std::function<void()> func);
+        void input_message_forward(int key, int scancode, int action, int mods);
         bool main_loop();
         std::string_view get_error_msg();
     };
+
+    inline Gameplay* current_gameplay = nullptr;
 }

@@ -52,9 +52,6 @@ static void on_tick()
     {
         spirite.on_tick();
     });
-
-    // renderer frame
-    on_draw();
 }
 
 static void pack_message_up(std::shared_ptr<nigf::Message> msg)
@@ -79,7 +76,6 @@ int main(int argc, char *argv[]) noexcept
         if(self.get_position_x() < -256) self.set_position_x(self.get_position_x() + 1);
         if(self.get_position_x() + self.get_size_w() > 256) self.set_position_x(self.get_position_x() - 1);
 
-        std::cout << "spd_x:" << self.get_speed_x() << "\t spd_y:" << self.get_speed_y() << '\n';
         self.set_position_x(self.get_position_x() + self.get_speed_x());
         self.set_position_y(self.get_position_y() + self.get_speed_y());
     });
@@ -89,6 +85,7 @@ int main(int argc, char *argv[]) noexcept
         {
             auto buffer = static_cast<nigf::KeyboardMessage*>(msg);
             auto &obj = gameobjects.get(0);
+
             if (buffer->is_key_down())
             {
                 switch (buffer->get_code())
@@ -142,6 +139,7 @@ int main(int argc, char *argv[]) noexcept
     gp.bind_on_draw_func(on_draw);
     gp.bind_message_handle_func(pack_message_up);
     gp.bind_on_gameplay_tick_func(on_tick);
+    nigf::current_gameplay = &gp;
 
     if (!gp.main_loop())
     {
