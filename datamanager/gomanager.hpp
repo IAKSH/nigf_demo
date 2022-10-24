@@ -12,7 +12,7 @@ namespace nidm
 
         void add(nigf::GameObject go)
         {
-            go.reset_id(count);
+            go.reset_id(count++);
             list.push_front(go);
         }
     };
