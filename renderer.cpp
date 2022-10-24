@@ -42,21 +42,24 @@ void nie::Renderer::draw()
 {
     if (!drawing_image)
         return;
-    // glBindTexture(GL_TEXTURE_2D,*(drawing_image->get_data()));
+    glBindTexture(GL_TEXTURE_2D,*(drawing_image->get_data()));
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);                            //支持4字节对齐
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);      // S方向上贴图
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);      // T方向上贴图
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //放大纹理过滤方式
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //缩小纹理过滤方式
 
-    glTexImage2D(GL_TEXTURE_2D, 0, 3, drawing_image->get_width(), drawing_image->get_hight(), 0, GL_RGB, GL_UNSIGNED_BYTE, drawing_image->get_data()); //载入纹理：
+    //载入纹理：
+    // for jpg
+    //glTexImage2D(GL_TEXTURE_2D, 0, 3, drawing_image->get_width(), drawing_image->get_hight(), 0, GL_RGB, GL_UNSIGNED_BYTE, drawing_image->get_data());
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, drawing_image->get_width(), drawing_image->get_hight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, drawing_image->get_data());
 
     glMatrixMode(GL_MODELVIEW);  // 选择模型观察矩阵
     glLoadIdentity();            // 重置模型观察矩阵
     glMatrixMode(GL_PROJECTION); // 选择投影矩阵
     glLoadIdentity();
 
-    glEnable(GL_TEXTURE_2D); //启用2D纹理映射
+    glEnable(GL_TEXTURE_2D); // 启用2D纹理映射
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.0f);
     glVertex3f(square_vertex[0][0], square_vertex[0][1], square_vertex[0][2]);

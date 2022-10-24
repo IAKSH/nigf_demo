@@ -78,7 +78,7 @@ void nigf::Gameplay::bind_on_draw_func(std::function<void()> func)
 void nigf::Gameplay::clearn_screen()
 {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void nigf::Gameplay::display()

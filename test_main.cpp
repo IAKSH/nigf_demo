@@ -54,8 +54,8 @@ static void pack_message_up(std::shared_ptr<nigf::Message> msg)
 
 nigf::GameObject obj_player(0, 0, "obj_player");
 nigf::GameSpirite spr_player(0, "spr_player");
-nigf::Animation ani_player(0, "ani_player", 200, {std::make_shared<nigf::Image>("../resource/minami_walk_down_0.png"), std::make_shared<nigf::Image>("../resource/error.jpg")});
-
+nigf::Animation ani_player(0, "ani_player", 800, {std::make_shared<nigf::Image>("../resource/minami_walk_down_0.jpg"),std::make_shared<nigf::Image>("../resource/minami_walk_down_1.jpg"), std::make_shared<nigf::Image>("../resource/error.jpg")});
+//nigf::Animation ani_player(0, "ani_player", 200, {std::make_shared<nigf::Image>("../resource/minami_walk_down_0.png"),std::make_shared<nigf::Image>("../resource/minami_walk_down_1.png"), std::make_shared<nigf::Image>("../resource/error.png")});
 int main(int argc, char *argv[]) noexcept
 {
     std::cout << "hello world\n";
@@ -64,8 +64,8 @@ int main(int argc, char *argv[]) noexcept
     obj_player.set_animation(animations.get("ani_player"));
 
     // initialize_demo();
-    obj_player.set_size_h(100);
-    obj_player.set_size_w(100);
+    obj_player.set_size_h(200);
+    obj_player.set_size_w(200);
     spr_player.bind_on_tick_func([&](nigf::GameObject &self)
                                  {
         if(self.get_position_y() > 256) self.set_position_y(self.get_position_y() - 1);
