@@ -6,7 +6,9 @@
 #include "gamespirite.hpp"
 #include "image.hpp"
 #include "msgobject.hpp"
+#include "keyboard.hpp"
 
+// abandoned
 namespace nigf
 {
     inline const int NIGF_MAJOR_VERSION = 0;
