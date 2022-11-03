@@ -69,14 +69,19 @@ add_executable(nigf_demo)
 
 target_sources(nigf_demo PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/test_main.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/player.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/player.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/custom/player.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/custom/player.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/custom/background.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/custom/background.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/custom/sunflower.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/custom/sunflower.cpp
 )
 
 target_include_directories(nigf_demo PUBLIC 
     ${CMAKE_CURRENT_LIST_DIR}/framework/
     ${CMAKE_CURRENT_LIST_DIR}/datamanager/
     ${CMAKE_CURRENT_LIST_DIR}/render/
+    ${CMAKE_CURRENT_LIST_DIR}/custom/
 )
 
 target_link_libraries(nigf_demo PUBLIC
