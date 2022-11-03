@@ -1,7 +1,7 @@
 #include <nigf.hpp>
 #include <nidm.hpp>
 
-#include "renderer.hpp"
+#include <renderer.hpp>
 #include "player.hpp"
 
 #include <GL/gl.h>
@@ -54,8 +54,9 @@ static void pack_message_up(std::shared_ptr<nigf::Message> msg)
 
 nigf::GameObject obj_player(0, 0, "obj_player");
 nigf::GameSpirite spr_player(0, "spr_player");
-nigf::Animation ani_player(0, "ani_player", 800, {std::make_shared<nigf::Image>("../resource/minami_walk_down_0.jpg"),std::make_shared<nigf::Image>("../resource/minami_walk_down_1.jpg"), std::make_shared<nigf::Image>("../resource/error.jpg")});
-//nigf::Animation ani_player(0, "ani_player", 200, {std::make_shared<nigf::Image>("../resource/minami_walk_down_0.png"),std::make_shared<nigf::Image>("../resource/minami_walk_down_1.png"), std::make_shared<nigf::Image>("../resource/error.png")});
+//nigf::Animation ani_player(0, "ani_player", 800, {std::make_shared<nigf::Image>("../resource/minami_walk_down_0.jpg"),std::make_shared<nigf::Image>("../resource/minami_walk_down_1.jpg"), std::make_shared<nigf::Image>("../resource/error.jpg")});
+nigf::Animation ani_player(0, "ani_player", 200, {std::make_shared<nigf::Image>("../resource/minami_walk_down_0.png"),std::make_shared<nigf::Image>("../resource/minami_walk_down_1.png"), std::make_shared<nigf::Image>("../resource/error.png")});
+
 int main(int argc, char *argv[]) noexcept
 {
     std::cout << "hello world\n";

@@ -1,5 +1,4 @@
 #include "renderer.hpp"
-#include <GL/freeglut.h>
 
 #include <iostream>
 
