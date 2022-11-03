@@ -77,6 +77,8 @@ void mydemo::player::movment_hook(nigf::Message *msg)
             case nigf::KeyboardCode::KEY_D:
                 obj.set_speed_x(1);
                 break;
+            default:
+                break;
             }
         }
         else
@@ -97,6 +99,8 @@ void mydemo::player::movment_hook(nigf::Message *msg)
 
             case nigf::KeyboardCode::KEY_D:
                 obj.set_speed_x(0);
+                break;
+            default:
                 break;
             }
         }

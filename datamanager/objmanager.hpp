@@ -58,13 +58,13 @@ namespace nidm
         void remove(unsigned int id)
         {
             list.remove_if([&](nigf::GameObject &go)
-                           { go.get_id() == id; });
+                           { return go.get_id() == id; });
         }
 
         void remove(std::string name)
         {
             list.remove_if([&](nigf::GameObject &go)
-                           { go.get_name() == name; });
+                           { return go.get_name() == name; });
         }
 
         void clear()
