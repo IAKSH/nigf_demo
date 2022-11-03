@@ -5,5 +5,5 @@
 
 namespace mydemo::background
 {
-    void initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm);
+    void initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm, nidm::AudioManager &aum);
 }

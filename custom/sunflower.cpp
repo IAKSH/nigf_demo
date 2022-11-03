@@ -6,6 +6,7 @@ namespace mydemo::sunflower
     nidm::GameObjectManager *gameobjects;
     nidm::GameSpiriteManager *gamespirites;
     nidm::MessageManager *messages;
+    nidm::AudioManager *audios;
 
     nigf::GameObject obj_sunflower(0, 2, "obj_sunflower");
     nigf::Animation ani_sunflower(2, "ani_sunflower", 75,{
@@ -30,12 +31,13 @@ namespace mydemo::sunflower
     });
 }
 
-void mydemo::sunflower::initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm)
+void mydemo::sunflower::initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm,nidm::AudioManager &aum)
 {
     animations = &am;
     gameobjects = &gom;
     gamespirites = &gsm;
     messages = &mm;
+    audios = &aum;
 
     animations->add(ani_sunflower);
 

@@ -6,17 +6,19 @@ namespace mydemo::background
     nidm::GameObjectManager *gameobjects;
     nidm::GameSpiriteManager *gamespirites;
     nidm::MessageManager *messages;
+    nidm::AudioManager *audios;
 
     nigf::GameObject obj_background(0, 1, "obj_background");
     nigf::Animation ani_background(1, "ani_background", 200, {std::make_shared<nigf::Image>("../resource/grass_backgroundpng.png")});
 }
 
-void mydemo::background::initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm)
+void mydemo::background::initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm, nidm::AudioManager &aum)
 {
     animations = &am;
     gameobjects = &gom;
     gamespirites = &gsm;
     messages = &mm;
+    audios = &aum;
 
     animations->add(ani_background);
 

@@ -23,6 +23,8 @@ target_sources(nigf PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/framework/animation.hpp
     ${CMAKE_CURRENT_LIST_DIR}/framework/keyboard.cpp
     ${CMAKE_CURRENT_LIST_DIR}/framework/keyboard.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/audio.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/framework/audio.hpp
 )
 
 target_include_directories(nigf PUBLIC 
@@ -47,12 +49,23 @@ target_sources(nidm PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/datamanager/gsmanager.cpp
     ${CMAKE_CURRENT_LIST_DIR}/datamanager/animanager.hpp
     ${CMAKE_CURRENT_LIST_DIR}/datamanager/animanager.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/audiomanager.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/datamanager/audiomanager.cpp
     ${CMAKE_CURRENT_LIST_DIR}/datamanager/nidm.hpp
 )
 
 target_include_directories(nidm PUBLIC 
     ${CMAKE_CURRENT_LIST_DIR}/framework/
 )
+
+add_library(audioplayer)
+
+target_sources(audioplayer PUBLIC
+    ${CMAKE_CURRENT_LIST_DIR}/audioplayer/audioplayer.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/audioplayer/audioplayer.hpp
+)
+
+target_link_libraries(audioplayer PUBLIC openal)
 
 add_library(render)
 
@@ -84,12 +97,14 @@ target_include_directories(nigf_demo PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/datamanager/
     ${CMAKE_CURRENT_LIST_DIR}/render/
     ${CMAKE_CURRENT_LIST_DIR}/custom/
+    ${CMAKE_CURRENT_LIST_DIR}/audioplayer/
 )
 
 target_link_libraries(nigf_demo PUBLIC
     nigf
     nidm
     render
+    audioplayer
 )
 
 

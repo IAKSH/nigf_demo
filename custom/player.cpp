@@ -1,11 +1,17 @@
 #include "player.hpp"
 
+#include <audioplayer.hpp>
+#include <audio.hpp>
+
 namespace mydemo::player
 {
+    nie::AudioPlayer player;
+
     nidm::AnimationManager *animations;
     nidm::GameObjectManager *gameobjects;
     nidm::GameSpiriteManager *gamespirites;
     nidm::MessageManager *messages;
+    nidm::AudioManager *audios;
 
     nigf::GameObject obj_player(0, 0, "obj_player");
     nigf::GameSpirite spr_player(0, "spr_player");
@@ -32,17 +38,20 @@ namespace mydemo::player
     });
 }
 
-void mydemo::player::initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm)
+void mydemo::player::initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm,nidm::AudioManager &aum)
 {
     animations = &am;
     gameobjects = &gom;
     gamespirites = &gsm;
     messages = &mm;
+    audios = &aum;
+
+    // Audio Test
+    aum.add(nigf::Audio(0,"click","../resource/click.wav"));
 
     am.add(ani_player);
     obj_player.set_animation(am.get("ani_player"));
 
-    // initialize_demo();
     obj_player.set_size_h(125);
     obj_player.set_size_w(150);
     obj_player.set_position_z(0);
@@ -95,6 +104,10 @@ void mydemo::player::movment_hook(nigf::Message *msg)
 
             case nigf::KeyboardCode::KEY_D:
                 obj.set_speed_x(1);
+                break;
+            case nigf::KeyboardCode::KEY_0:
+                std::cout << "trying to play sound...\n";
+                player.play(audios->get("click").get_pcm(),audios->get("click").get_size(),false,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f);
                 break;
             default:
                 break;

@@ -1,6 +1,7 @@
 #include <nigf.hpp>
 #include <nidm.hpp>
 #include <renderer.hpp>
+#include <audioplayer.hpp>
 
 #include <GL/gl.h>
 
@@ -14,12 +15,14 @@
 #include <sunflower.hpp>
 #include <dragon.hpp>
 
-nidm::AnimationManager animations;
-nidm::GameObjectManager gameobjects;
-nidm::GameSpiriteManager gamespirites;
-nidm::MessageManager messages;
+static nidm::AnimationManager animations;
+static nidm::GameObjectManager gameobjects;
+static nidm::GameSpiriteManager gamespirites;
+static nidm::MessageManager messages;
+static nidm::AudioManager audios;
 
 static nie::Renderer renderer(60);
+static nie::AudioPlayer audioplayer;
 
 static void on_draw()
 {
@@ -60,10 +63,10 @@ int main(int argc, char *argv[]) noexcept
 {
     std::cout << "hello world\n";
 
-    mydemo::player::initialize(animations,gameobjects,gamespirites,messages);
-    mydemo::dragon::initialize(animations,gameobjects,gamespirites,messages);
-    mydemo::sunflower::initialize(animations,gameobjects,gamespirites,messages);
-    mydemo::background::initialize(animations,gameobjects,gamespirites,messages);
+    mydemo::player::initialize(animations,gameobjects,gamespirites,messages,audios);
+    mydemo::dragon::initialize(animations,gameobjects,gamespirites,messages,audios);
+    mydemo::sunflower::initialize(animations,gameobjects,gamespirites,messages,audios);
+    mydemo::background::initialize(animations,gameobjects,gamespirites,messages,audios);
 
     nigf::Gameplay gp("hello world!", 800, 600, 60, &argc, argv);
     gp.bind_on_draw_func(on_draw);

@@ -5,3 +5,4 @@
 #include "gsmanager.hpp"
 #include "gomanager.hpp"
 #include "animanager.hpp"
+#include "audiomanager.hpp"

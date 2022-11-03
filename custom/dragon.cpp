@@ -6,24 +6,26 @@ namespace mydemo::dragon
     nidm::GameObjectManager *gameobjects;
     nidm::GameSpiriteManager *gamespirites;
     nidm::MessageManager *messages;
+    nidm::AudioManager *audios;
 
     nigf::GameObject obj_dragon(0, 2, "obj_dragon");
-    nigf::Animation ani_dragon(2, "ani_dragon", 100,{
-        std::make_shared<nigf::Image>("../resource/dragon_1.png"),
-        std::make_shared<nigf::Image>("../resource/dragon_2.png"),
-        std::make_shared<nigf::Image>("../resource/dragon_3.png"),
-        std::make_shared<nigf::Image>("../resource/dragon_4.png"),
-        std::make_shared<nigf::Image>("../resource/dragon_5.png"),
-        std::make_shared<nigf::Image>("../resource/dragon_6.png"),
-    });
+    nigf::Animation ani_dragon(2, "ani_dragon", 100, {
+                                                         std::make_shared<nigf::Image>("../resource/dragon_1.png"),
+                                                         std::make_shared<nigf::Image>("../resource/dragon_2.png"),
+                                                         std::make_shared<nigf::Image>("../resource/dragon_3.png"),
+                                                         std::make_shared<nigf::Image>("../resource/dragon_4.png"),
+                                                         std::make_shared<nigf::Image>("../resource/dragon_5.png"),
+                                                         std::make_shared<nigf::Image>("../resource/dragon_6.png"),
+                                                     });
 }
 
-void mydemo::dragon::initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm)
+void mydemo::dragon::initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm, nidm::AudioManager &aum)
 {
     animations = &am;
     gameobjects = &gom;
     gamespirites = &gsm;
     messages = &mm;
+    audios = &aum;
 
     animations->add(ani_dragon);
 
