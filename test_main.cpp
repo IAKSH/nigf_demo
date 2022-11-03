@@ -22,7 +22,6 @@ static nidm::MessageManager messages;
 static nidm::AudioManager audios;
 
 static nie::Renderer renderer(60);
-static nie::AudioPlayer audioplayer;
 
 static void on_draw()
 {

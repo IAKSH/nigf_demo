@@ -5,7 +5,7 @@
 
 namespace mydemo::player
 {
-    nie::AudioPlayer player;
+    //nie::AudioPlayer player;
 
     nidm::AnimationManager *animations;
     nidm::GameObjectManager *gameobjects;
@@ -105,10 +105,12 @@ void mydemo::player::movment_hook(nigf::Message *msg)
             case nigf::KeyboardCode::KEY_D:
                 obj.set_speed_x(1);
                 break;
+            /*
             case nigf::KeyboardCode::KEY_0:
                 std::cout << "trying to play sound...\n";
                 player.play(audios->get("click").get_pcm(),audios->get("click").get_size(),false,0.0f,0.0f,0.0f,0.0f,0.0f,0.0f);
                 break;
+            */
             default:
                 break;
             }
