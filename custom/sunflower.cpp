@@ -39,8 +39,8 @@ void mydemo::sunflower::initialize(nidm::AnimationManager &am, nidm::GameObjectM
 
     animations->add(ani_sunflower);
 
-    obj_sunflower.set_size_w(75);
-    obj_sunflower.set_size_h(75);
+    obj_sunflower.set_size_w(150);
+    obj_sunflower.set_size_h(125);
     obj_sunflower.set_position_x(0);
     obj_sunflower.set_position_y(0);
     obj_sunflower.set_position_z(15);

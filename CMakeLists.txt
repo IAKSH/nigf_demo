@@ -75,6 +75,8 @@ target_sources(nigf_demo PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/custom/background.cpp
     ${CMAKE_CURRENT_LIST_DIR}/custom/sunflower.hpp
     ${CMAKE_CURRENT_LIST_DIR}/custom/sunflower.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/custom/dragon.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/custom/dragon.cpp
 )
 
 target_include_directories(nigf_demo PUBLIC 

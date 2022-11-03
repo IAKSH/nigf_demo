@@ -10,7 +10,26 @@ namespace mydemo::player
     nigf::GameObject obj_player(0, 0, "obj_player");
     nigf::GameSpirite spr_player(0, "spr_player");
     // nigf::Animation ani_player(0, "ani_player", 800, {std::make_shared<nigf::Image>("../resource/minami_walk_down_0.jpg"),std::make_shared<nigf::Image>("../resource/minami_walk_down_1.jpg"), std::make_shared<nigf::Image>("../resource/error.jpg")});
-    nigf::Animation ani_player(0, "ani_player", 200, {std::make_shared<nigf::Image>("../resource/minami_walk_down_0.png"), std::make_shared<nigf::Image>("../resource/minami_walk_down_1.png"), std::make_shared<nigf::Image>("../resource/error.png")});
+        nigf::Animation ani_player(0, "ani_player", 75,{
+        std::make_shared<nigf::Image>("../resource/1.png"),
+        std::make_shared<nigf::Image>("../resource/2.png"),
+        std::make_shared<nigf::Image>("../resource/3.png"),
+        std::make_shared<nigf::Image>("../resource/4.png"),
+        std::make_shared<nigf::Image>("../resource/5.png"),
+        std::make_shared<nigf::Image>("../resource/6.png"),
+        std::make_shared<nigf::Image>("../resource/7.png"),
+        std::make_shared<nigf::Image>("../resource/8.png"),
+        std::make_shared<nigf::Image>("../resource/9.png"),
+        std::make_shared<nigf::Image>("../resource/10.png"),
+        std::make_shared<nigf::Image>("../resource/11.png"),
+        std::make_shared<nigf::Image>("../resource/12.png"),
+        std::make_shared<nigf::Image>("../resource/13.png"),
+        std::make_shared<nigf::Image>("../resource/14.png"),
+        std::make_shared<nigf::Image>("../resource/15.png"),
+        std::make_shared<nigf::Image>("../resource/16.png"),
+        std::make_shared<nigf::Image>("../resource/17.png"),
+        std::make_shared<nigf::Image>("../resource/18.png")
+    });
 }
 
 void mydemo::player::initialize(nidm::AnimationManager &am, nidm::GameObjectManager &gom, nidm::GameSpiriteManager &gsm, nidm::MessageManager &mm)
@@ -24,8 +43,8 @@ void mydemo::player::initialize(nidm::AnimationManager &am, nidm::GameObjectMana
     obj_player.set_animation(am.get("ani_player"));
 
     // initialize_demo();
-    obj_player.set_size_h(200);
-    obj_player.set_size_w(200);
+    obj_player.set_size_h(125);
+    obj_player.set_size_w(150);
     obj_player.set_position_z(0);
     spr_player.bind_on_tick_func(ontick);
     spr_player.add_hook(movment_hook);

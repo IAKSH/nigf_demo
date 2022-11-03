@@ -51,7 +51,7 @@ void nie::Renderer::draw()
     //载入纹理：
     // for jpg
     //glTexImage2D(GL_TEXTURE_2D, 0, 3, drawing_image->get_width(), drawing_image->get_hight(), 0, GL_RGB, GL_UNSIGNED_BYTE, drawing_image->get_data());
-    glTexImage2D(GL_TEXTURE_2D, 0, 3, drawing_image->get_width(), drawing_image->get_hight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, drawing_image->get_data());
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, drawing_image->get_width(), drawing_image->get_hight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, drawing_image->get_data());
 
     glMatrixMode(GL_MODELVIEW);  // 选择模型观察矩阵
     glLoadIdentity();            // 重置模型观察矩阵
@@ -59,6 +59,8 @@ void nie::Renderer::draw()
     glLoadIdentity();
 
     glEnable(GL_TEXTURE_2D); // 启用2D纹理映射
+    glEnable(GL_BLEND); //开混合模式贴图
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);// 指定混合模式算法
     glBegin(GL_QUADS);
     glTexCoord2f(0.0f, 0.0f);
     glVertex3f(square_vertex[0][0], square_vertex[0][1], square_vertex[0][2]);
@@ -70,5 +72,6 @@ void nie::Renderer::draw()
     glVertex3f(square_vertex[3][0], square_vertex[3][1], square_vertex[3][2]);
     glEnd();
     glDisable(GL_TEXTURE_2D);
+    glDisable(GL_BLEND);
     glFlush();
 }

@@ -12,6 +12,7 @@
 #include <player.hpp>
 #include <background.hpp>
 #include <sunflower.hpp>
+#include <dragon.hpp>
 
 nidm::AnimationManager animations;
 nidm::GameObjectManager gameobjects;
@@ -60,6 +61,7 @@ int main(int argc, char *argv[]) noexcept
     std::cout << "hello world\n";
 
     mydemo::player::initialize(animations,gameobjects,gamespirites,messages);
+    mydemo::dragon::initialize(animations,gameobjects,gamespirites,messages);
     mydemo::sunflower::initialize(animations,gameobjects,gamespirites,messages);
     mydemo::background::initialize(animations,gameobjects,gamespirites,messages);
 
