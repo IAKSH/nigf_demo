@@ -1,6 +1,7 @@
 #include "renderer.hpp"
 
 #include <iostream>
+#include <thread>
 
 nie::Renderer::Renderer(int fps)
     : aimed_fps(fps)
@@ -41,6 +42,12 @@ void nie::Renderer::draw()
 {
     if (!drawing_image)
         return;
+
+    while(static_cast<std::chrono::duration<double>>(std::chrono::steady_clock::now() - last_draw).count() < (1.0f / aimed_fps))
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
+
+    last_draw = std::chrono::steady_clock::now();
+
     glBindTexture(GL_TEXTURE_2D,*(drawing_image->get_data()));
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);                            //支持4字节对齐
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);      // S方向上贴图

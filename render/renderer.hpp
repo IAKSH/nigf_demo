@@ -3,6 +3,7 @@
 #include <GL/gl.h>
 
 #include <array>
+#include <chrono>
 
 namespace nie
 {
@@ -12,6 +13,7 @@ namespace nie
         nigf::Image* drawing_image = nullptr;
         std::array<float,3> drawing_sqare_pos, drawing_sqare_offset;
         std::array<std::array<float,3>,4> square_vertex;
+        std::chrono::steady_clock::time_point last_draw = std::chrono::steady_clock::now();
         int aimed_fps;
 
     public:
